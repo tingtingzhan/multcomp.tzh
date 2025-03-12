@@ -4,6 +4,7 @@
 \alias{S3_glht}
 \alias{confint_.glht}
 \alias{confint_.confint.glht}
+\alias{.pval.glht}
 \alias{.pval.summary.glht}
 \alias{.pval.summary.gtest}
 \alias{.pval.mtest}
@@ -14,6 +15,8 @@
 confint_.glht(x, level = 0.95, ...)
 
 confint_.confint.glht(x, ...)
+
+.pval.glht(x)
 
 .pval.summary.glht(x)
 
@@ -34,4 +37,16 @@ Sprintf.glht(x)
 }
 \description{
 Additional S3 Methods for \link[multcomp]{glht} Object
+}
+\examples{
+library(multcomp)
+m0 = lm(breaks ~ tension + wool, data = warpbreaks)
+cp = mcp(tension = 'Tukey', wool = 'Dunnett')
+m1 = aov(breaks ~ tension + wool, data = warpbreaks) |> glht(linfct = cp)
+m2 = m0 |> glht(linfct = cp)
+summary(m0)
+summary(m1)
+summary(m1, test = adjusted('none'))
+.pval.glht(m1)
+
 }

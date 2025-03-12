@@ -8,6 +8,17 @@
 #' 
 #' @param ... ..
 #' 
+#' @examples
+#' library(multcomp)
+#' m0 = lm(breaks ~ tension + wool, data = warpbreaks)
+#' cp = mcp(tension = 'Tukey', wool = 'Dunnett')
+#' m1 = aov(breaks ~ tension + wool, data = warpbreaks) |> glht(linfct = cp)
+#' m2 = m0 |> glht(linfct = cp)
+#' summary(m0)
+#' summary(m1)
+#' summary(m1, test = adjusted('none'))
+#' .pval.glht(m1)
+#' 
 #' @name S3_glht
 #' @importFrom stats confint
 #' @export
@@ -24,6 +35,17 @@ confint_.confint.glht <- function(x, ...) {
   ci <- ci_[, -1L, drop = FALSE] # three columns, 'Estimate', 'lwr' and 'upr'
   attr(ci, which = 'conf.level') <- attr(ci_, which = 'conf.level', exact = TRUE)
   return(ci)
+}
+
+#' @rdname S3_glht
+#' @importFrom multcomp adjusted
+#' @export
+.pval.glht <- function(x) {
+  # different from tzh::.pval.default !!!
+  x |>
+    summary(test = adjusted(type = 'none')) |> # ?multcomp:::summary.glht
+    .pval.summary.glht()
+  # adjusted p-values simply confuses collaborators
 }
 
 #' @rdname S3_glht
