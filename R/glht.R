@@ -73,7 +73,7 @@ confint_.confint.glht <- function(x, ...) {
 #' @rdname S3_glht
 #' @export
 Sprintf.glht <- function(x) {
-  'Select linear contrasts are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.'
+  'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.'
 }
 
 
