@@ -71,9 +71,12 @@ confint_.confint.glht <- function(x, ...) {
 
 
 #' @rdname S3_glht
+#' @importFrom methods new
+#' @importClassesFrom rmd.tzh md_lines
 #' @export
 Sprintf.glht <- function(x) {
-  'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.'
+  'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
+    new(Class = 'md_lines', package = 'multcomp')
 }
 
 
