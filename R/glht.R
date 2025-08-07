@@ -21,6 +21,8 @@
 #' 
 #' @name S3_glht
 #' @importFrom stats confint
+#' @importFrom ecip confint_
+#' @export confint_.glht
 #' @export
 confint_.glht <- function(x, level = .95, ...) {
   x |>
@@ -29,6 +31,9 @@ confint_.glht <- function(x, level = .95, ...) {
 }
 
 #' @rdname S3_glht
+#' @importFrom ecip confint_
+#' @method confint_ confint.glht
+#' @export confint_.confint.glht
 #' @export
 confint_.confint.glht <- function(x, ...) {
   ci_ <- x$confint
@@ -39,6 +44,8 @@ confint_.confint.glht <- function(x, ...) {
 
 #' @rdname S3_glht
 #' @importFrom multcomp adjusted
+#' @importFrom ecip .pval
+#' @export .pval.glht
 #' @export
 .pval.glht <- function(x) {
   # different from tzh::.pval.default !!!
@@ -49,14 +56,22 @@ confint_.confint.glht <- function(x, ...) {
 }
 
 #' @rdname S3_glht
+#' @importFrom ecip .pval
+#' @method .pval summary.glht
+#' @export .pval.summary.glht
 #' @export
 .pval.summary.glht <- function(x) (x$test) |> .pval.mtest()
 
 #' @rdname S3_glht
+#' @importFrom ecip .pval
+#' @method .pval summary.gtest
+#' @export .pval.summary.gtest
 #' @export
 .pval.summary.gtest <- function(x) (x$test) |> .pval.gtest()
 
 #' @rdname S3_glht
+#' @importFrom ecip .pval
+#' @export .pval.mtest
 #' @export
 .pval.mtest <- function(x) {
   p <- x$pvalues # unnamed ..
@@ -64,8 +79,9 @@ confint_.confint.glht <- function(x, ...) {
   return(p)
 }
 
-
 #' @rdname S3_glht
+#' @importFrom ecip .pval
+#' @export .pval.gtest
 #' @export
 .pval.gtest <- function(x) stop('not programmed yet (should be easy)')
 
@@ -73,11 +89,74 @@ confint_.confint.glht <- function(x, ...) {
 #' @rdname S3_glht
 #' @importFrom methods new
 #' @importClassesFrom rmd.tzh md_lines
+#' @importFrom ecip Sprintf
+#' @export Sprintf.glht
 #' @export
 Sprintf.glht <- function(x) {
   'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')
 }
+
+
+#' @rdname S3_glht
+#' @importFrom ecip estnm
+#' @export estnm.glht
+#' @export
+estnm.glht <- function(x) estnm(x$model)
+
+
+
+#' @rdname S3_glht
+#' @importFrom ecip expcoef
+#' @export expcoef.glht
+#' @export
+expcoef.glht <- function(x) expcoef(x$model)
+
+
+#' @rdname S3_glht
+#' @importFrom ecip endpoint
+#' @export endpoint.glht
+#' @export
+endpoint.glht <- function(x) endpoint(x$model)
+
+
+#' @rdname S3_glht
+#' @importFrom ecip nobsText
+#' @export nobsText.glht
+#' @export
+nobsText.glht <- function(x) nobsText(x$model)
+
+
+#' @title R Markdown Lines for \link[multcomp]{glht} Object
+#' 
+#' @param x,xnm,... ..
+#' 
+#' @examples
+#' library(rmd.tzh); library(ecip) 
+#' list(
+#'  '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
+#'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
+#'  '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
+#'    glht(linfct = mcp(tension = 'Tukey')),
+#'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
+#'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
+#' ) |> render_(file = 'glht')
+#' 
+#' @keywords internal
+#' @importFrom rmd.tzh md_
+#' @importFrom ecip md_flextable_
+#' @export md_.glht
+#' @export
+md_.glht <- function(x, xnm, ...) {
+  if (!is.character(xnm)) xnm <- deparse1(xnm)
+  return(c(
+    md_(x$model, xnm = paste0(xnm, '$model'), ...),
+    md_flextable_(x, xnm = xnm, ...)
+  ))
+}
+
+
+
 
 
 

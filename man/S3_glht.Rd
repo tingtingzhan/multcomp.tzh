@@ -10,23 +10,35 @@
 \alias{.pval.mtest}
 \alias{.pval.gtest}
 \alias{Sprintf.glht}
+\alias{estnm.glht}
+\alias{expcoef.glht}
+\alias{endpoint.glht}
+\alias{nobsText.glht}
 \title{Additional S3 Methods for \link[multcomp]{glht} Object}
 \usage{
-confint_.glht(x, level = 0.95, ...)
+\method{confint_}{glht}(x, level = 0.95, ...)
 
-confint_.confint.glht(x, ...)
+\method{confint_}{confint.glht}(x, ...)
 
-.pval.glht(x)
+\method{.pval}{glht}(x)
 
-.pval.summary.glht(x)
+\method{.pval}{summary.glht}(x)
 
-.pval.summary.gtest(x)
+\method{.pval}{summary.gtest}(x)
 
-.pval.mtest(x)
+\method{.pval}{mtest}(x)
 
-.pval.gtest(x)
+\method{.pval}{gtest}(x)
 
-Sprintf.glht(x)
+\method{Sprintf}{glht}(x)
+
+\method{estnm}{glht}(x)
+
+\method{expcoef}{glht}(x)
+
+\method{endpoint}{glht}(x)
+
+\method{nobsText}{glht}(x)
 }
 \arguments{
 \item{x}{a \link[multcomp]{glht} object}
