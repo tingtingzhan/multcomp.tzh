@@ -86,17 +86,6 @@ confint_.confint.glht <- function(x, ...) {
 .pval.gtest <- function(x) stop('not programmed yet (should be easy)')
 
 
-#' @rdname S3_glht
-#' @importFrom methods new
-#' @importClassesFrom rmd.tzh md_lines
-#' @importFrom ecip Sprintf
-#' @export Sprintf.glht
-#' @export
-Sprintf.glht <- function(x) {
-  'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
-    new(Class = 'md_lines', package = 'multcomp')
-}
-
 
 #' @rdname S3_glht
 #' @importFrom ecip estnm
@@ -132,8 +121,7 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' @param x,xnm,... ..
 #' 
 #' @examples
-#' library(rmd.tzh); library(ecip) 
-#' list(
+#' library(rmd.tzh); library(ecip); list(
 #'  '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
 #'  '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
@@ -143,17 +131,32 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' ) |> render_(file = 'glht')
 #' 
 #' @keywords internal
+#' @importFrom methods new
+#' @importClassesFrom rmd.tzh md_lines
 #' @importFrom rmd.tzh md_
-#' @importFrom ecip md_flextable_
 #' @export md_.glht
 #' @export
 md_.glht <- function(x, xnm, ...) {
+  
   if (!is.character(xnm)) xnm <- deparse1(xnm)
-  return(c(
-    md_(x$model, xnm = paste0(xnm, '$model'), ...),
-    md_flextable_(x, xnm = xnm, ...)
-  ))
+  
+  z0 <- md_(x$model, xnm = paste0(xnm, '$model'), ...)
+  
+  z1 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
+    new(Class = 'md_lines', package = 'multcomp')
+  
+  z2 <- c(
+    '```{r}', 
+    '#| echo: false', 
+    xnm |> sprintf(fmt = 'as_flextable(%s)'),
+    '```'
+  ) |>
+    new(Class = 'md_lines')
+  
+  c(z0, z1, z2) # rmd.tzh::c.md_lines
+  
 }
+
 
 
 

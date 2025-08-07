@@ -9,7 +9,6 @@
 \alias{.pval.summary.gtest}
 \alias{.pval.mtest}
 \alias{.pval.gtest}
-\alias{Sprintf.glht}
 \alias{estnm.glht}
 \alias{expcoef.glht}
 \alias{endpoint.glht}
@@ -29,8 +28,6 @@
 \method{.pval}{mtest}(x)
 
 \method{.pval}{gtest}(x)
-
-\method{Sprintf}{glht}(x)
 
 \method{estnm}{glht}(x)
 
