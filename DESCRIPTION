@@ -13,4 +13,4 @@ RoxygenNote: 7.3.2
 Encoding: UTF-8
 License: GPL-2
 Depends: R (>= 4.5), multcomp (== 1.4.28)
-Imports: methods, rmd.tzh, ecip
+Imports: methods, flextable, rmd.tzh, ecip
