@@ -121,14 +121,14 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' @param x,xnm,... ..
 #' 
 #' @examples
-#' library(rmd.tzh); library(ecip); list(
+#' library(ecip); list(
 #'  '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
 #'  '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-#' ) |> render_(file = 'glht')
+#' ) |> rmd.tzh::render_(file = 'glht')
 #' 
 #' @keywords internal
 #' @importFrom methods new
