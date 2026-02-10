@@ -132,12 +132,11 @@ nobsText.glht <- function(x) nobsText(x$model)
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-#' ) |> rmd.tzh::render_(file = 'glht')
+#' ) |> fastmd::render_(file = 'glht')
 #' @keywords internal
 #' @importFrom methods new
-#' @importClassesFrom rmd.tzh md_lines
-#' @importFrom rmd.tzh md_
-#' @importFrom flextable.tzh md_.aov
+#' @importClassesFrom fastmd md_lines
+#' @importFrom fastmd md_
 #' @export md_.glht
 #' @export
 md_.glht <- function(x, xnm, ...) {
@@ -145,8 +144,6 @@ md_.glht <- function(x, xnm, ...) {
   if (!is.character(xnm)) xnm <- deparse1(xnm)
   
   z0 <- md_(x$model, xnm = paste0(xnm, '$model'), ...)
-  # must import ?flextable.tzh::md_.aov
-  # !!!!!!!
   
   z1 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')
@@ -159,7 +156,7 @@ md_.glht <- function(x, xnm, ...) {
   ) |>
     new(Class = 'md_lines')
   
-  c(z0, z1, z2) # rmd.tzh::c.md_lines
+  c(z0, z1, z2) # fastmd::c.md_lines
   
 }
 
