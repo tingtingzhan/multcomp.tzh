@@ -30,6 +30,8 @@ confint_.glht <- function(x, level = .95, ...) {
     confint_.confint.glht()
 }
 
+
+
 #' @rdname S3_glht
 #' @importFrom ecip confint_
 #' @method confint_ confint.glht
@@ -121,19 +123,21 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' @param x,xnm,... ..
 #' 
 #' @examples
-#' library(ecip); list(
-#'  '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
+#' library(ecip)
+#' 
+#' list(
+#'  '`aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
-#'  '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
+#'  '`lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
 #' ) |> rmd.tzh::render_(file = 'glht')
-#' 
 #' @keywords internal
 #' @importFrom methods new
 #' @importClassesFrom rmd.tzh md_lines
 #' @importFrom rmd.tzh md_
+#' @importFrom flextable.tzh md_.aov
 #' @export md_.glht
 #' @export
 md_.glht <- function(x, xnm, ...) {
@@ -141,6 +145,8 @@ md_.glht <- function(x, xnm, ...) {
   if (!is.character(xnm)) xnm <- deparse1(xnm)
   
   z0 <- md_(x$model, xnm = paste0(xnm, '$model'), ...)
+  # must import ?flextable.tzh::md_.aov
+  # !!!!!!!
   
   z1 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')

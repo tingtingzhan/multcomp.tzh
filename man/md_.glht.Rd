@@ -13,14 +13,15 @@
 R Markdown Lines for \link[multcomp]{glht} Object
 }
 \examples{
-library(ecip); list(
- '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
+library(ecip)
+
+list(
+ '`aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
- '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
+ '`lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
    glht(linfct = mcp(tension = 'Tukey')),
  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
 ) |> rmd.tzh::render_(file = 'glht')
-
 }
 \keyword{internal}
