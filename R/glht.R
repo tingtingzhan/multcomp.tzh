@@ -132,7 +132,7 @@ nobsText.glht <- function(x) nobsText(x$model)
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-#' ) |> fastmd::render_(file = 'glht')
+#' ) |> fastmd::render2html(file = 'glht')
 #' @keywords internal
 #' @importFrom methods new
 #' @importClassesFrom fastmd md_lines
@@ -150,7 +150,6 @@ md_.glht <- function(x, xnm, ...) {
   
   z2 <- c(
     '```{r}', 
-    '#| echo: false', 
     xnm |> sprintf(fmt = 'as_flextable(%s)'),
     '```'
   ) |>
