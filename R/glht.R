@@ -123,9 +123,7 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' @param x,xnm,... ..
 #' 
 #' @examples
-#' library(ecip)
-#' 
-#' list(
+#' library(ecip); list(
 #'  '`aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
 #'  '`lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
@@ -136,7 +134,7 @@ nobsText.glht <- function(x) nobsText(x$model)
 #' @keywords internal
 #' @importFrom methods new
 #' @importClassesFrom fastmd md_lines
-#' @importFrom fastmd md_
+#' @importFrom fastmd md_ md_flextable_
 #' @export md_.glht
 #' @export
 md_.glht <- function(x, xnm, ...) {
@@ -148,9 +146,7 @@ md_.glht <- function(x, xnm, ...) {
   z1 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')
   
-  z2 <- xnm |> 
-    sprintf(fmt = 'as_flextable(%s)') |>
-    new(Class = 'md_lines', chunk.r = TRUE)
+  z2 <- md_flextable_(xnm = xnm, ...)
   
   c(z0, z1, z2) # fastmd::c.md_lines
   
