@@ -132,7 +132,7 @@ nobsText.glht <- function(x) nobsText(x$model)
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-#' ) |> fastmd::render2html(file = 'glht')
+#' ) |> fastmd::render2html()
 #' @keywords internal
 #' @importFrom methods new
 #' @importClassesFrom fastmd md_lines
@@ -148,12 +148,9 @@ md_.glht <- function(x, xnm, ...) {
   z1 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')
   
-  z2 <- c(
-    '```{r}', 
-    xnm |> sprintf(fmt = 'as_flextable(%s)'),
-    '```'
-  ) |>
-    new(Class = 'md_lines')
+  z2 <- xnm |> 
+    sprintf(fmt = 'as_flextable(%s)') |>
+    new(Class = 'md_lines', chunk.r = TRUE)
   
   c(z0, z1, z2) # fastmd::c.md_lines
   

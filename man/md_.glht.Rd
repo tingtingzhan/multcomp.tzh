@@ -22,6 +22,6 @@ list(
    glht(linfct = mcp(tension = 'Tukey')),
  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-) |> fastmd::render2html(file = 'glht')
+) |> fastmd::render2html()
 }
 \keyword{internal}
