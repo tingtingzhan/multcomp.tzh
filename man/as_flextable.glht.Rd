@@ -12,13 +12,13 @@
 \item{...}{additional parameters, currently of no use}
 }
 \value{
-Function \code{\link[=as_flextable.glht]{as_flextable.glht()}} returns a \link[flextable]{flextable}.
+The \code{S3} method \code{\link[=as_flextable.glht]{as_flextable.glht()}} returns a \link[flextable]{flextable}.
 }
 \description{
 ..
 }
 \details{
-Function \code{\link[=as_flextable.glht]{as_flextable.glht()}} add additional \link[flextable]{hline}(s)
+The \code{S3} method \code{\link[=as_flextable.glht]{as_flextable.glht()}} add additional \link[flextable]{hline}(s)
 for multiple \verb{$focus} in the input \link[multcomp]{glht} object.
 }
 \keyword{internal}

@@ -10,11 +10,11 @@
 #' @param ... additional parameters, currently of no use
 #' 
 #' @details
-#' Function [as_flextable.glht()] add additional \link[flextable]{hline}(s)
+#' The `S3` method [as_flextable.glht()] add additional \link[flextable]{hline}(s)
 #' for multiple `$focus` in the input \link[multcomp]{glht} object.
 #' 
 #' @returns
-#' Function [as_flextable.glht()] returns a \link[flextable]{flextable}.
+#' The `S3` method [as_flextable.glht()] returns a \link[flextable]{flextable}.
 #'  
 #' @keywords internal  
 #' @importFrom flextable as_flextable hline
