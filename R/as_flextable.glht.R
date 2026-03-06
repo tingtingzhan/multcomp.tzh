@@ -18,7 +18,6 @@
 #'  
 #' @keywords internal  
 #' @importFrom flextable as_flextable hline
-#' @importFrom stats coef
 #' @importFrom ecip ecip as_flextable.ecip
 #' @export as_flextable.glht
 #' @export

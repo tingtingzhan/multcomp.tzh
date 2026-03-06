@@ -1,33 +1,31 @@
 
-#' @title R Markdown Lines for \link[multcomp]{glht} Object
-#' 
-#' @param x,xnm,... ..
+#' @title \link[multcomp]{glht} Object
 #' 
 #' @examples
-#' library(fastmd); library(ecip) 
-#' list(
+#' library(ecip); list(
 #'  '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
 #'  '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey')),
 #'  '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
 #'    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-#' ) |> render2html(file = 'glht')
+#' ) |> fastmd::render2html(file = 'glht')
 #' 
-#' @keywords internal
+#' @name glht
+NULL
+
 #' @importFrom fastmd md_ md_flextable_
-#' @export md_.glht
 #' @export
 md_.glht <- function(x, xnm, ...) {
   
   if (!is.character(xnm)) xnm <- deparse1(xnm)
   
-  z1 <- md_(x$model, xnm = paste0(xnm, '$model'), ...)
+  z1 <- md_(x = x$model, xnm = paste0(xnm, '$model'), ...)
   
   z2 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
     new(Class = 'md_lines', package = 'multcomp')
   
-  z3 <- md_flextable_(x, xnm = xnm, ...)
+  z3 <- md_flextable_(xnm = xnm, ...)
   
   c(z1, z2, z3) # fastmd::c.md_lines
 }
@@ -40,7 +38,6 @@ md_.glht <- function(x, xnm, ...) {
 
 
 
-#' @importFrom stats confint
 #' @importFrom ecip confint_
 #' @export
 confint_.glht <- function(x, level = .95, ...) {
