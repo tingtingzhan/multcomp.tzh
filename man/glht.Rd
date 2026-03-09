@@ -8,12 +8,16 @@
 }
 \examples{
 library(ecip); list(
- '`glht` via `aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
-   glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett')),
- '`glht` via `lm`, single `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
-   glht(linfct = mcp(tension = 'Tukey')),
- '`glht` via `lm`, multiple `$focus`' = lm(breaks ~ tension + wool, data = warpbreaks) |> 
+ '`aov`' = aov(breaks ~ tension + wool, data = warpbreaks) |> 
    glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
-) |> fastmd::render2html(file = 'glht')
+) |> fastmd::render2html()
+
+m = lm(breaks ~ tension + wool, data = warpbreaks)
+library(ecip); list(
+ '`lm`, single `$focus`' = m |> 
+   glht(linfct = mcp(tension = 'Tukey')),
+ '`lm`, multiple `$focus`' = m |> 
+   glht(linfct = mcp(tension = 'Tukey', wool = 'Dunnett'))
+) |> fastmd::render2html()
 
 }
