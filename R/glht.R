@@ -18,7 +18,7 @@
 #' @name glht
 NULL
 
-#' @importFrom fastmd md_ md_flextable_
+#' @importFrom fastmd md_ md_int
 #' @export
 md_.glht <- function(x, xnm, ...) {
   
@@ -26,19 +26,21 @@ md_.glht <- function(x, xnm, ...) {
   
   z1 <- md_(x = x$model, xnm = paste0(xnm, '$model'), ...)
   
-  z2 <- 'Select linear contrast(s) are created using <u>**`R`**</u> package <u>**`multcomp`**</u>.' |>
-    new(Class = 'md_lines', package = 'multcomp')
+  z2 <- md_int(x = x, xnm = xnm, engine = 'flextable', ...)
   
-  z3 <- md_flextable_(xnm = xnm, ...)
-  
-  c(z1, z2, z3) # fastmd::c.md_lines
+  c(z1, z2) # fastmd::c.md_lines
 }
 
 
 
-
-
-
+#' @importFrom ecip desc_
+#' @importClassesFrom fastmd md_lines
+#' @export
+desc_.glht <- function(x) {
+  'general linear hypotheses & multiple comparisons' |>
+    sprintf(fmt = '*%s*') |>
+    new(Class = 'md_lines', package = 'multcomp')
+}
 
 
 
